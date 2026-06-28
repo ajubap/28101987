@@ -7,7 +7,7 @@ import dash_bootstrap_components as dbc
 from dash import ALL, Input, Output, State, callback, dcc, html
 
 from dashboard import runner
-from dashboard.theme import card, command_output, output_panel, page_header, run_button
+from dashboard.theme import UPLOAD_STYLE, card, command_output, output_panel, page_header, run_button
 
 dash.register_page(__name__, path="/data", name="Data", order=1)
 
@@ -105,9 +105,9 @@ layout = html.Div(
             [
                 dcc.Upload(
                     id="vtu-upload",
-                    children=html.Div(["Drag & drop or ", html.A("select .vtu/.vtk files")]),
+                    children=html.Div(["Drag & drop or ", html.A("select .vtu/.vtk files")], className="text-muted"),
                     multiple=True,
-                    className="border border-2 border-dashed rounded p-4 text-center text-muted",
+                    style=UPLOAD_STYLE,
                 ),
                 dbc.Row(
                     [
@@ -131,9 +131,9 @@ layout = html.Div(
             [
                 dcc.Upload(
                     id="ensight-upload",
-                    children=html.Div(["Drag & drop or ", html.A("select an EnSight .zip / .case")]),
+                    children=html.Div(["Drag & drop or ", html.A("select an EnSight .zip / .case")], className="text-muted"),
                     multiple=False,
-                    className="border border-2 border-dashed rounded p-4 text-center text-muted",
+                    style=UPLOAD_STYLE,
                 ),
                 dbc.Row(
                     [

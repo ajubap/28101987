@@ -10,6 +10,16 @@ from dash import dcc, html
 # Stylesheets used by the app (imported in app.py).
 EXTERNAL_STYLESHEETS = [dbc.themes.FLATLY, dbc.icons.BOOTSTRAP]
 
+# Inline style for dcc.Upload drop-zones. Bootstrap 5 has no `border-dashed`
+# utility, so the dashed look must be set explicitly.
+UPLOAD_STYLE = {
+    "border": "2px dashed #adb5bd",
+    "borderRadius": "0.5rem",
+    "padding": "1.5rem",
+    "textAlign": "center",
+    "cursor": "pointer",
+}
+
 
 def page_header(title: str, subtitle: str = "") -> html.Div:
     children: list[Any] = [html.H3(title, className="mb-1")]

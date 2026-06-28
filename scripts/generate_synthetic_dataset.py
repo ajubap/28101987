@@ -38,8 +38,9 @@ from physicsai_gnn.case_schema import (
     target_scalar_columns,
 )
 
-# Names that should be treated as 3-component vector fields.
-VECTOR_HINTS = ("velocity", "vel", "displacement", "momentum", "flux", "gradient")
+# Names that should be treated as 3-component vector fields. Kept deliberately
+# narrow so scalar fields like "heat_flux" are not mistaken for vectors.
+VECTOR_HINTS = ("velocity", "displacement", "momentum")
 
 
 def is_vector_field(name: str) -> bool:

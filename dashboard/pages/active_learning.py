@@ -7,7 +7,7 @@ import dash_bootstrap_components as dbc
 from dash import Input, Output, State, callback, dash_table, dcc, html
 
 from dashboard import runner
-from dashboard.theme import card, command_output, output_panel, page_header, run_button
+from dashboard.theme import UPLOAD_STYLE, card, command_output, output_panel, page_header, run_button
 
 dash.register_page(__name__, path="/active-learning", name="Active Learning", order=6)
 
@@ -20,9 +20,9 @@ layout = html.Div(
             [
                 dcc.Upload(
                     id="cand-upload",
-                    children=html.Div(["Drag & drop or ", html.A("select candidate_cases.csv")]),
+                    children=html.Div(["Drag & drop or ", html.A("select candidate_cases.csv")], className="text-muted"),
                     multiple=False,
-                    className="border border-2 border-dashed rounded p-3 text-center text-muted",
+                    style=UPLOAD_STYLE,
                 ),
                 dbc.Row(
                     [
