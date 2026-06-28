@@ -1,0 +1,91 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+.conda/
+conda-env/
+
+# ---- Jupyter / IPython ----
+.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+# ---- ML model weights & checkpoints (do NOT commit) ----
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.hdf5
+*.pb
+*.onnx
+*.pkl
+*.pickle
+*.joblib
+*.safetensors
+checkpoints/
+runs/
+wandb/
+mlruns/
+lightning_logs/
+tensorboard/
+tb_logs/
+
+# ---- Datasets & CFD mesh / field data (too large for git) ----
+data/
+datasets/
+raw/
+processed/
+*.vtk
+*.vtu
+*.vtp
+*.pvd
+*.foam
+*.msh
+*.cgns
+*.cas
+*.dat
+*.h5m
+*.xdmf
+*.npy
+*.npz
+*.csv
+*.tfrecord
+
+# ---- Logs & outputs ----
+logs/
+*.log
+outputs/
+output/
+results/
+figures/
+*.mp4
+*.gif
+
+# ---- OS / editor cruft ----
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+
+# ---- Environment / secrets ----
+.env
+.env.*
+*.local
+secrets.*

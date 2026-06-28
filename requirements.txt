@@ -1,0 +1,14 @@
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+pyyaml>=6.0
+meshio>=5.3
+pyvista>=0.43
+vtk>=9.2
+matplotlib>=3.8
+dash>=2.16
+dash-bootstrap-components>=1.5
+plotly>=5.18
+tqdm>=4.66
+torch>=2.2
+torch-geometric>=2.5

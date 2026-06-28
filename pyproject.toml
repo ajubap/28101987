@@ -1,0 +1,12 @@
+[project]
+name = "advanced-physicsai-meshgnn"
+version = "0.1.0"
+description = "Advanced PhysicsAI-like MeshGraphNet starter for CAE surrogate modelling"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
