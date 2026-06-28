@@ -1,0 +1,66 @@
+project:
+  name: coldplate_unified_hybrid_cae
+  seed: 42
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  metadata_csv: data/raw/cases.csv
+  output_dir: outputs
+  normalizer_file: outputs/normalizers.json
+  model_registry_dir: outputs/model_registry
+
+data:
+  mesh_file_column: mesh_file
+  case_id_column: case_id
+  global_feature_columns: [flow_rate_lpm, inlet_temp_c, power_w, plate_thickness_mm]
+  point_feature_arrays: [bc_inlet, bc_outlet, bc_wall, bc_heat_source]
+  target_field_arrays: [temperature, pressure]
+  target_scalar_columns: [target_max_temp_c, target_pressure_drop_pa]
+  train_fraction: 0.75
+  val_fraction: 0.15
+  test_fraction: 0.10
+
+normalization:
+  enabled: true
+  normalize_x: true
+  normalize_edge_attr: true
+  normalize_y: true
+  normalize_y_scalar: true
+  no_normalize_x_patterns: [bc_, region, material_id]
+
+model:
+  name: unified_hybrid_cae
+  latent_dim: 160
+  local_message_passing_steps: 8
+  global_transformer_steps: 2
+  transformer_heads: 4
+  transformer_layers_per_step: 1
+  max_global_tokens: 512
+  mlp_layers: 3
+  dropout: 0.08
+  use_layer_norm: true
+  predict_scalar_outputs: true
+
+training:
+  epochs: 120
+  batch_size: 2
+  learning_rate: 0.0004
+  weight_decay: 0.000001
+  grad_clip_norm: 1.0
+  device: auto
+
+loss:
+  field_weight: 1.0
+  scalar_weight: 0.35
+  smoothness_weight: 0.01
+  boundary_condition_weight: 0.03
+  pressure_positive_weight: 0.02
+  hotspot_weight: 0.08
+  pressure_drop_field_weight: 0.04
+
+deployment:
+  design_limits:
+    max_temperature_c: 70.0
+    max_pressure_drop_pa: 25000.0
+  report_title: Cold Plate Unified Hybrid CAE Surrogate Validation

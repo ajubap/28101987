@@ -1,0 +1,76 @@
+project:
+  name: generic_cfd_surrogate
+  seed: 42
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  metadata_csv: data/raw/cases.csv
+  output_dir: outputs
+  normalizer_file: outputs/normalizers.json
+  model_registry_dir: outputs/model_registry
+
+data:
+  mesh_file_column: mesh_file
+  case_id_column: case_id
+
+  # Edit these names to match the columns in cases.csv.
+  global_feature_columns: [reynolds, mach, angle_of_attack_deg]
+
+  # These must exist as point_data arrays in every training mesh.
+  point_feature_arrays: [wall_mask, inlet_mask, outlet_mask]
+
+  # These must exist as point_data arrays in every training mesh.
+  # Vector arrays are supported and expanded as velocity.x, velocity.y, velocity.z.
+  target_field_arrays: [pressure, velocity]
+
+  # These must exist as numeric columns in cases.csv for training/evaluation.
+  target_scalar_columns: [drag_coefficient, lift_coefficient]
+
+  train_fraction: 0.75
+  val_fraction: 0.15
+  test_fraction: 0.10
+
+normalization:
+  enabled: true
+  normalize_x: true
+  normalize_edge_attr: true
+  normalize_y: true
+  normalize_y_scalar: true
+  no_normalize_x_patterns: [mask, region, material_id]
+
+model:
+  name: unified_hybrid_cae
+  latent_dim: 160
+  local_message_passing_steps: 8
+  global_transformer_steps: 2
+  transformer_heads: 4
+  transformer_layers_per_step: 1
+  max_global_tokens: 512
+  mlp_layers: 3
+  dropout: 0.08
+  use_layer_norm: true
+  predict_scalar_outputs: true
+
+training:
+  epochs: 120
+  batch_size: 2
+  learning_rate: 0.0004
+  weight_decay: 0.000001
+  grad_clip_norm: 1.0
+  device: auto
+
+loss:
+  field_weight: 1.0
+  scalar_weight: 0.35
+  smoothness_weight: 0.01
+
+  # Keep problem-specific losses off until fields and masks are mapped.
+  boundary_condition_weight: 0.0
+  pressure_positive_weight: 0.0
+  hotspot_weight: 0.0
+  pressure_drop_field_weight: 0.0
+
+deployment:
+  design_limits: {}
+  report_title: Generic CFD Surrogate Validation
